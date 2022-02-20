@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using React3x4.Entities.Identity;
+using DataLib.Entities.Identity;
 
-namespace React3x4.EFContext
+namespace DataLib
 {
-    public class EFContext:IdentityDbContext<AppUser,AppRole,long,IdentityUserClaim<long>,
-        AppUserRole,IdentityUserLogin<long>,
-        IdentityRoleClaim<long>, IdentityUserToken<long>>
+    public class AppEFContext : IdentityDbContext<AppUser, AppRole, long, IdentityUserClaim<long>,
+         AppUserRole, IdentityUserLogin<long>,
+         IdentityRoleClaim<long>, IdentityUserToken<long>>
     {
-        public EFContext(DbContextOptions<EFContext> options):base(options)
+        public AppEFContext(DbContextOptions<AppEFContext> options) : base(options)
         {
 
         }

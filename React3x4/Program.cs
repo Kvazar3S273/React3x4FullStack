@@ -1,5 +1,7 @@
+using DataLib;
+using DataLib.Entities.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using React3x4.EFContext;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,9 +9,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<EFContext>((DbContextOptionsBuilder options) =>
-
+builder.Services.AddDbContext<AppEFContext>((DbContextOptionsBuilder options) =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<AppUser, AppRole>(options =>
+ {
+     options.Password.RequireDigit = false;
+     options.Password.RequiredLength = 4;
+     options.Password.RequireNonAlphanumeric = false;
+     options.Password.RequireUppercase = false;
+     options.Password.RequireLowercase = false;
+ })
+    .AddEntityFrameworkStores<AppEFContext>()
+    .AddDefaultTokenProviders();
+
 
 
 var app = builder.Build();

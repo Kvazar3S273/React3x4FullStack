@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace React3x4.Entities.Identity
+namespace DataLib.Entities.Identity
 {
     public class AppUserRole:IdentityUserRole<long>
     {

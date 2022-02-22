@@ -10,7 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppEFContext>((DbContextOptionsBuilder options) =>
-options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+//options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddIdentity<AppUser, AppRole>(options =>
  {

@@ -1,7 +1,10 @@
 using DataLib;
 using DataLib.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using React3x4.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppEFContext>((DbContextOptionsBuilder options) =>
 //options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddControllersWithViews().AddFluentValidation();
+builder.Services.AddTransient<IValidator<RegisterViewModel>, AccountValidator>();
 
 builder.Services.AddIdentity<AppUser, AppRole>(options =>
  {

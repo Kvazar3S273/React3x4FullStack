@@ -5,6 +5,8 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using React3x4.Models;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +32,9 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
     .AddEntityFrameworkStores<AppEFContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.AddControllersWithViews().AddViewLocalization();
+
 
 
 var app = builder.Build();
@@ -39,9 +44,26 @@ if (!app.Environment.IsDevelopment())
 {
 }
 
+var supportedCultures = new[]
+            {
+                new CultureInfo("en"),
+                new CultureInfo("uk")
+            };
+
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("uk"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures
+});
+
+
 app.UseStaticFiles();
 app.UseRouting();
 
+app.MapControllerRoute(
+    name: "defaultlocal",
+    pattern: "{lang=uk}/{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

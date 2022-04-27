@@ -50,24 +50,37 @@ namespace React3x4.Controllers
             //    return BadRequest(new { message = "Такий користувач вже існує" });
             //}
 
-            var user = new AppUser
-            {
-                Email = model.Email
-            };
 
-            var role = new AppRole
-            {
-                Name = Roles.User
-            };
 
-            var result = await _userManager.CreateAsync(user, model.Password);
 
-            if (!result.Succeeded)
-                return BadRequest(new { message = result.Errors });
 
-            await _userManager.AddToRoleAsync(user, role.Name);
 
-            await _signInManager.SignInAsync(user, isPersistent: false);
+
+
+
+
+
+
+
+
+            //var user = new AppUser
+            //{
+            //    Email = model.Email
+            //};
+
+            //var role = new AppRole
+            //{
+            //    Name = Roles.User
+            //};
+
+            //var result = await _userManager.CreateAsync(user, model.Password);
+
+            //if (!result.Succeeded)
+            //    return BadRequest(new { message = result.Errors });
+
+            //await _userManager.AddToRoleAsync(user, role.Name);
+
+            //await _signInManager.SignInAsync(user, isPersistent: false);
 
             return Ok();
         }

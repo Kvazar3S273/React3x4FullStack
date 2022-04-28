@@ -7,6 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using React3x4.Models;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +25,42 @@ options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")
 
 builder.Services.AddControllersWithViews().AddFluentValidation();
 builder.Services.AddTransient<IValidator<RegisterViewModel>, AccountValidator>();
+
+builder.Services.AddControllers().AddNewtonsoftJson(options=>
+{
+    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+    options.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Include;
+    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+});
+builder.Services.AddSwaggerGen((SwaggerGenOptions o) =>
+{
+    o.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Description = "Swagger",
+        Version = "v1",
+        Title = "3x4 example"
+    });
+});
+
+var app = builder.Build();
+app.UseSwagger();
+app.UseSwaggerUI((SwaggerUIOptions c) =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Player");
+});
+
+app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller}/{action=Index}/{id?}");
+});
+
 
 builder.Services.AddIdentity<AppUser, AppRole>(options =>
  {
@@ -35,9 +76,7 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.AddControllersWithViews().AddViewLocalization();
 
-
-
-var app = builder.Build();
+//var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

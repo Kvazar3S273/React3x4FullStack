@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using React3x4.Constants;
 using React3x4.Models;
+using React3x4.Services.Abstractions;
 
 namespace React3x4.Controllers
 {
@@ -13,76 +14,56 @@ namespace React3x4.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly IJWTConfig _tokenService;
         private readonly RoleManager<AppRole> _roleManager;
         public AccountController(UserManager<AppUser> userManager,
                                 SignInManager<AppUser> signInManager,
-                                RoleManager<AppRole> roleManager)
+                                RoleManager<AppRole> roleManager,
+                                IJWTConfig tokenService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _tokenService = tokenService;
         }
 
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterViewModel model)
         {
-            //return BadRequest(new {
-            //    message="Такий користувач вже існує!"
-            //});
+            try
+            {
+                var role = new AppRole
+                {
+                    Name = Roles.User
+                };
+                var result1 = _roleManager.CreateAsync(role).Result;
 
+                var user = new AppUser
+                {
+                    Email = model.Email,
+                    //UserName = model.Name
 
-            //AccountValidator validRules = new();
-            //var res = validRules.ValidateAsync(model);
+                };
 
-            //якщо модель не валідна:
-            //if (!res.Result.IsValid)
-            //{
-            //    return BadRequest(res.Result.Errors);
-            //}
+                var result = await _userManager.CreateAsync(user, model.Password);
 
-            //шукаю користувача по емейлу.
-            //var user = await _userManager.FindByEmailAsync(model.Email);
+                if (!result.Succeeded)
+                    return BadRequest(new { message = result.Errors });
 
-            //якщо такий користувач вже існує:
-            //if (user != null)
-            //{
-            //    return BadRequest(new { message = "Такий користувач вже існує" });
-            //}
+                await _userManager.AddToRoleAsync(user, role.Name);
 
+                await _signInManager.SignInAsync(user, isPersistent: false);
 
-
-
-
-
-
-
-
-
-
-
-
-
-            //var user = new AppUser
-            //{
-            //    Email = model.Email
-            //};
-
-            //var role = new AppRole
-            //{
-            //    Name = Roles.User
-            //};
-
-            //var result = await _userManager.CreateAsync(user, model.Password);
-
-            //if (!result.Succeeded)
-            //    return BadRequest(new { message = result.Errors });
-
-            //await _userManager.AddToRoleAsync(user, role.Name);
-
-            //await _signInManager.SignInAsync(user, isPersistent: false);
-
-            return Ok();
+                return Ok(new
+                {
+                    token = _tokenService.CreateToken(user)
+                });
+            }
+            catch
+            {
+                return BadRequest(new { message = "Error database" });
+            }
         }
     }
 }

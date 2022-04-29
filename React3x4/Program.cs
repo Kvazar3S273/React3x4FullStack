@@ -12,8 +12,15 @@ using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using React3x4.Services.Abstractions;
+using React3x4.Services.Implements;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+ConfigurationManager configuration = builder.Configuration;
 
 // Add services to the container.
 
@@ -26,7 +33,48 @@ options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")
 builder.Services.AddControllersWithViews().AddFluentValidation();
 builder.Services.AddTransient<IValidator<RegisterViewModel>, AccountValidator>();
 
-builder.Services.AddControllers().AddNewtonsoftJson(options=>
+//how use interfaces
+builder.Services.AddScoped<IJWTConfig, JWTConfig>();
+
+builder.Services.AddIdentity<AppUser, AppRole>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 4;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+})
+    .AddEntityFrameworkStores<AppEFContext>()
+    .AddDefaultTokenProviders();
+
+//Configuration from AppSettings
+var appSettingSection = configuration.GetSection("AppSetting");
+builder.Services.Configure<AppSettings>(appSettingSection);
+
+// Adding Authentication
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+// Adding Jwt Bearer
+
+.AddJwtBearer(options =>
+{
+    options.SaveToken = false;
+    options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuerSigningKey = true,
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["AppSetting:Key"]))
+    };
+});
+
+
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
     options.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Include;
@@ -46,7 +94,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI((SwaggerUIOptions c) =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Player");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "3x4 example");
 });
 
 app.UseHttpsRedirection();
@@ -61,40 +109,39 @@ app.UseEndpoints(endpoints =>
         pattern: "{controller}/{action=Index}/{id?}");
 });
 
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+    options.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Include;
+    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+});
+builder.Services.AddSwaggerGen((SwaggerGenOptions o) =>
+{
+    o.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Description = "Swagger",
+        Version = "v1",
+        Title = "Video player example"
+    });
+});
+builder.Services.AddCors();
 
-builder.Services.AddIdentity<AppUser, AppRole>(options =>
- {
-     options.Password.RequireDigit = false;
-     options.Password.RequiredLength = 4;
-     options.Password.RequireNonAlphanumeric = false;
-     options.Password.RequireUppercase = false;
-     options.Password.RequireLowercase = false;
- })
-    .AddEntityFrameworkStores<AppEFContext>()
-    .AddDefaultTokenProviders();
 
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-builder.Services.AddControllersWithViews().AddViewLocalization();
+//if (app.Environment.IsDevelopment())
+//{
 
-//var app = builder.Build();
+app.UseSwagger();
+app.UseSwaggerUI((SwaggerUIOptions c) =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Player");
+});
+//}
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
 }
-
-var supportedCultures = new[]
-            {
-                new CultureInfo("en"),
-                new CultureInfo("uk")
-            };
-
-app.UseRequestLocalization(new RequestLocalizationOptions
-{
-    DefaultRequestCulture = new RequestCulture("uk"),
-    SupportedCultures = supportedCultures,
-    SupportedUICultures = supportedCultures
-});
 
 
 app.UseStaticFiles();

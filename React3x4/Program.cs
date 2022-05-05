@@ -90,7 +90,6 @@ builder.Services.AddSwaggerGen((SwaggerGenOptions o) =>
 
 var app = builder.Build();
 
-
 app.UseSwagger();
 
 app.UseSwaggerUI((SwaggerUIOptions c) =>
@@ -116,19 +115,14 @@ app.UseEndpoints(endpoints =>
         pattern: "{controller}/{action=Index}/{id?}");
 });
 
+app.MapControllerRoute(
+    name: "defaultlocal",
+    pattern: "{lang=uk}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller}/{action=Index}/{id?}");
+
+app.MapFallbackToFile("index.html"); ;
+
 app.Run();
-
-
-
-
-
-//app.MapControllerRoute(
-//    name: "defaultlocal",
-//    pattern: "{lang=uk}/{controller=Home}/{action=Index}/{id?}");
-
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller}/{action=Index}/{id?}");
-
-//app.MapFallbackToFile("index.html"); ;
-

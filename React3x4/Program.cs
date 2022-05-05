@@ -5,8 +5,6 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using React3x4.Models;
-using System.Globalization;
-using Microsoft.AspNetCore.Localization;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -24,18 +22,13 @@ ConfigurationManager configuration = builder.Configuration;
 
 // Add services to the container.
 
-builder.Services.AddControllersWithViews();
-
 builder.Services.AddDbContext<AppEFContext>((DbContextOptionsBuilder options) =>
-//options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-builder.Services.AddControllersWithViews().AddFluentValidation();
-builder.Services.AddTransient<IValidator<RegisterViewModel>, AccountValidator>();
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 //how use interfaces
 builder.Services.AddScoped<IJWTConfig, JWTConfig>();
 
+// For Identity
 builder.Services.AddIdentity<AppUser, AppRole>(options =>
 {
     options.Password.RequireDigit = false;
@@ -59,11 +52,10 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 })
 // Adding Jwt Bearer
-
 .AddJwtBearer(options =>
 {
     options.SaveToken = false;
-    options.RequireHttpsMetadata = false;
+    //options.RequireHttpsMetadata = false;
     options.TokenValidationParameters = new TokenValidationParameters()
     {
         ValidateIssuerSigningKey = true,
@@ -73,13 +65,18 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-
+// Add services to the container.
+builder.Services.AddControllersWithViews().AddFluentValidation();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddTransient<IValidator<RegisterViewModel>, AccountValidator>();
+//builder.Services.AddAutoMapper(typeof(UserProfile));
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
     options.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Include;
     options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 });
+
 builder.Services.AddSwaggerGen((SwaggerGenOptions o) =>
 {
     o.SwaggerDoc("v1", new OpenApiInfo
@@ -89,18 +86,28 @@ builder.Services.AddSwaggerGen((SwaggerGenOptions o) =>
         Title = "3x4 example"
     });
 });
+//builder.Services.AddCors();
 
 var app = builder.Build();
+
+
 app.UseSwagger();
+
 app.UseSwaggerUI((SwaggerUIOptions c) =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "3x4 example");
 });
 
-app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+//app.UseHttpsRedirection();
+
+app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+//await app.SeedData();
 
 app.UseEndpoints(endpoints =>
 {
@@ -109,52 +116,19 @@ app.UseEndpoints(endpoints =>
         pattern: "{controller}/{action=Index}/{id?}");
 });
 
-builder.Services.AddControllers().AddNewtonsoftJson(options =>
-{
-    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-    options.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Include;
-    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-});
-builder.Services.AddSwaggerGen((SwaggerGenOptions o) =>
-{
-    o.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Description = "Swagger",
-        Version = "v1",
-        Title = "Video player example"
-    });
-});
-builder.Services.AddCors();
-
-
-//if (app.Environment.IsDevelopment())
-//{
-
-app.UseSwagger();
-app.UseSwaggerUI((SwaggerUIOptions c) =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Player");
-});
-//}
-
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-}
-
-
-app.UseStaticFiles();
-app.UseRouting();
-
-app.MapControllerRoute(
-    name: "defaultlocal",
-    pattern: "{lang=uk}/{controller=Home}/{action=Index}/{id?}");
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
-
-app.MapFallbackToFile("index.html"); ;
-
 app.Run();
+
+
+
+
+
+//app.MapControllerRoute(
+//    name: "defaultlocal",
+//    pattern: "{lang=uk}/{controller=Home}/{action=Index}/{id?}");
+
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller}/{action=Index}/{id?}");
+
+//app.MapFallbackToFile("index.html"); ;
+

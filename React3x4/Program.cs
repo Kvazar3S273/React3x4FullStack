@@ -15,6 +15,10 @@ using React3x4.Services.Implements;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using React3x4.Seeder;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -106,7 +110,8 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-//await app.SeedData();
+//Add data into database
+await app.SeedData();
 
 app.UseEndpoints(endpoints =>
 {

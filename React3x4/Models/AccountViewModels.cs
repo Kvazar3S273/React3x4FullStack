@@ -8,13 +8,13 @@ namespace React3x4.Models
         //[Display(Name = "Email")]
         //[Required(ErrorMessage = "Обов'язкове поле")]
         //[EmailAddress(ErrorMessage = "Не коректна пошта")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         //[Display(Name = "Password")]
         //[DataType(DataType.Password)]
         //[Required(ErrorMessage = "Неправильний пароль")]
-        public string Password { get; set; }
-        public string ConfirmPassword { get; set; }
+        public string? Password { get; set; }
+        public string? ConfirmPassword { get; set; }
     }
 
     public class AccountValidator : AbstractValidator<RegisterViewModel>

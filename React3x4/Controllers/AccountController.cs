@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using React3x4.Constants;
 using React3x4.Models;
 using React3x4.Services.Abstractions;
+using System.Threading.Tasks;
 
 namespace React3x4.Controllers
 {
@@ -42,7 +43,7 @@ namespace React3x4.Controllers
                 var user = new AppUser
                 {
                     Email = model.Email,
-                    //UserName = model.Name
+                    UserName = model.Email
 
                 };
 

@@ -30,7 +30,7 @@ namespace React3x4.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> RegisterAsync([FromBody] RegisterViewModel model)
+        public async Task<IActionResult> RegisterAsync([FromForm] RegisterViewModel model)
         {
             try
             {
@@ -43,8 +43,7 @@ namespace React3x4.Controllers
                 var user = new AppUser
                 {
                     Email = model.Email,
-                    UserName = model.Email
-
+                    UserName = model.UserName
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);

@@ -5,7 +5,8 @@ using DataLib.Entities.Identity;
 
 namespace DataLib
 {
-    public class AppEFContext : IdentityDbContext<AppUser, AppRole, long, IdentityUserClaim<long>,
+    public class AppEFContext : IdentityDbContext<AppUser, AppRole, long, 
+        IdentityUserClaim<long>,
          AppUserRole, IdentityUserLogin<long>,
          IdentityRoleClaim<long>, IdentityUserToken<long>>
     {

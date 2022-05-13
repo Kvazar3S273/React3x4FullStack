@@ -16,7 +16,7 @@ namespace React3x4.Models
         //[Required(ErrorMessage = "Неправильний пароль")]
         public string? Password { get; set; }
         public string? ConfirmPassword { get; set; }
-        public string? Photo { get; set; }
+        //public string? Photo { get; set; }
 
 
     }

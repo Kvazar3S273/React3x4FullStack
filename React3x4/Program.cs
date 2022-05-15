@@ -27,9 +27,6 @@ ConfigurationManager configuration = builder.Configuration;
 
 // Add services to the container.
 
-//builder.Services.AddDbContext<AppEFContext>((DbContextOptionsBuilder options) =>
-//    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 builder.Services.AddDbContext<AppEFContext>(options =>
          options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 

@@ -119,6 +119,11 @@ app.UseAuthorization();
 //Add data into database
 await app.SeedData();
 
+app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(

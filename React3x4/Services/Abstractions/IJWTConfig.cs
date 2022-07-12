@@ -1,6 +1,4 @@
-﻿
-
-using DataLib.Entities.Identity;
+﻿using DataLib.Entities.Identity;
 
 namespace React3x4.Services.Abstractions
 {

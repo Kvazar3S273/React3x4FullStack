@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.HttpOverrides;
+using React3x4.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 

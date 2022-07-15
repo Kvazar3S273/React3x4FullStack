@@ -120,6 +120,10 @@ app.UseAuthorization();
 //Add data into database
 await app.SeedData();
 
+app.FndSeedData();
+app.PhotoPrintSeedData();
+app.PhotoScanSeedData();
+
 app.UseCors(x => x
             .AllowAnyOrigin()
             .AllowAnyMethod()

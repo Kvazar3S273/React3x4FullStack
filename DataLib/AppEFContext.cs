@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using DataLib.Entities.Identity;
+using DataLib.Entities.Photo;
 
 namespace DataLib
 {
@@ -14,6 +15,10 @@ namespace DataLib
         {
 
         }
+
+        public virtual DbSet<Fnd> Fnds { get; set; }
+        public virtual DbSet<Photoprint> Fotoprints { get; set; }
+        public virtual DbSet<PhotoScan> Photoscans { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

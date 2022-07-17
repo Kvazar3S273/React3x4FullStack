@@ -3,6 +3,7 @@ using System;
 using DataLib;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataLib.Migrations
 {
     [DbContext(typeof(AppEFContext))]
-    partial class AppEFContextModelSnapshot : ModelSnapshot
+    [Migration("20220717131114_add tblPhotoDuplicate")]
+    partial class addtblPhotoDuplicate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,26 +161,6 @@ namespace DataLib.Migrations
                     b.ToTable("tblFotoNaDoc");
                 });
 
-            modelBuilder.Entity("DataLib.Entities.Photo.PhotoBottle", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Price")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Service")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("tblPhotoBottle");
-                });
-
             modelBuilder.Entity("DataLib.Entities.Photo.PhotoDuplicate", b =>
                 {
                     b.Property<int>("Id")
@@ -200,26 +182,6 @@ namespace DataLib.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("tblPhotoDuplicate");
-                });
-
-            modelBuilder.Entity("DataLib.Entities.Photo.PhotoPicture", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Format")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("tblPhotoPicture");
                 });
 
             modelBuilder.Entity("DataLib.Entities.Photo.Photoprint", b =>

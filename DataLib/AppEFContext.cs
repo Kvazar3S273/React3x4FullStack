@@ -19,6 +19,9 @@ namespace DataLib
         public virtual DbSet<Fnd> Fnds { get; set; }
         public virtual DbSet<Photoprint> Fotoprints { get; set; }
         public virtual DbSet<PhotoScan> Photoscans { get; set; }
+        public virtual DbSet<PhotoDuplicate> PhotoDuplicates { get; set; }
+        public virtual DbSet<PhotoPicture> PhotoPictures { get; set; }
+        public virtual DbSet<PhotoBottle> PhotoBottles{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

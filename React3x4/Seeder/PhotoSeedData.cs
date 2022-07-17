@@ -165,5 +165,133 @@ namespace React3x4.Seeder
                 context.SaveChanges();
             }
         }
+
+        public static void PhotoDuplicateSeedData(this IApplicationBuilder app)
+        {
+            using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+            var context = scope.ServiceProvider.GetRequiredService<AppEFContext>();
+
+            if (!context.PhotoDuplicates.Any())
+            {
+                context.PhotoDuplicates
+                    .Add(new PhotoDuplicate
+                    {
+                        Format = "10x15",
+                        PriceFirst = 15,
+                        PriceEachOther = 5
+                    }); 
+                context.PhotoDuplicates
+                    .Add(new PhotoDuplicate
+                    {
+                        Format = "13x18",
+                        PriceFirst = 20,
+                        PriceEachOther = 10
+                    }); 
+                context.PhotoDuplicates
+                    .Add(new PhotoDuplicate
+                    {
+                        Format = "15x21",
+                        PriceFirst = 22,
+                        PriceEachOther = 11
+                    }); 
+                context.PhotoDuplicates
+                    .Add(new PhotoDuplicate
+                    {
+                        Format = "20x30",
+                        PriceFirst = 36,
+                        PriceEachOther = 21
+                    });
+
+                context.SaveChanges();
+            }
+        }
+
+        public static void PhotoPictureSeedData(this IApplicationBuilder app)
+        {
+            using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+            var context = scope.ServiceProvider.GetRequiredService<AppEFContext>();
+
+            if (!context.PhotoPictures.Any())
+            {
+                context.PhotoPictures
+                    .Add(new PhotoPicture
+                    {
+                        Format = "20x30",
+                        Price = 410
+                    });
+                context.PhotoPictures
+                    .Add(new PhotoPicture
+                    {
+                        Format = "30x40",
+                        Price = 580
+                    });
+                context.PhotoPictures
+                    .Add(new PhotoPicture
+                    {
+                        Format = "40x60",
+                        Price = 770
+                    });
+                context.PhotoPictures
+                   .Add(new PhotoPicture
+                   {
+                       Format = "50x70",
+                       Price = 1050
+                   });
+                context.PhotoPictures
+                   .Add(new PhotoPicture
+                   {
+                       Format = "60x90",
+                       Price = 1200
+                   });
+                context.PhotoPictures
+                   .Add(new PhotoPicture
+                   {
+                       Format = "1 м.кв.",
+                       Price = 1700
+                   });
+
+                context.SaveChanges();
+            }
+        }
+
+        public static void PhotoBottleSeedData(this IApplicationBuilder app)
+        {
+            using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+            var context = scope.ServiceProvider.GetRequiredService<AppEFContext>();
+
+            if (!context.PhotoBottles.Any())
+            {
+                context.PhotoBottles
+                    .Add(new PhotoBottle
+                    {
+                        Service = "Етикетка по шаблону",
+                        Price = 150
+                    });
+                context.PhotoBottles
+                    .Add(new PhotoBottle
+                    {
+                        Service = "Індивідуальний дизайн",
+                        Price = 250
+                    });
+                context.PhotoBottles
+                    .Add(new PhotoBottle
+                    {
+                        Service = "Кожна наступна",
+                        Price = 40
+                    });
+                context.PhotoBottles
+                    .Add(new PhotoBottle
+                    {
+                        Service = "Поклейка на пляшку",
+                        Price = 40
+                    });
+
+                context.SaveChanges();
+            }
+        }
+
     }
 }

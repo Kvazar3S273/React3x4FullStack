@@ -123,6 +123,9 @@ await app.SeedData();
 app.FndSeedData();
 app.PhotoPrintSeedData();
 app.PhotoScanSeedData();
+app.PhotoDuplicateSeedData();
+app.PhotoPictureSeedData();
+app.PhotoBottleSeedData();
 
 app.UseCors(x => x
             .AllowAnyOrigin()

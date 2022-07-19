@@ -21,6 +21,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.HttpOverrides;
 using React3x4.Validation;
+using React3x4.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -75,7 +76,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddControllersWithViews().AddFluentValidation();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<IValidator<RegisterViewModel>, AccountValidator>();
-//builder.Services.AddAutoMapper(typeof(UserProfile));
+builder.Services.AddAutoMapper(typeof(PhotoProfile));
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

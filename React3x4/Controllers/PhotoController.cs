@@ -28,7 +28,7 @@ namespace React3x4.Controllers
         [HttpGet]
         public async Task<IActionResult> GetFndsList()
         {
-            var fndsList = await _context.Fnds.Select(res => _mapper.Map<FndsViewModel>(res)).ToListAsync();
+            var fndsList = await _context.Fnds.OrderBy(r => r.Id).Select(res => _mapper.Map<FndsViewModel>(res)).ToListAsync();
             if (fndsList == null)
             {
                 return BadRequest(new { message = "There is no data for display!" });
@@ -58,7 +58,7 @@ namespace React3x4.Controllers
 
         [HttpPut]
         [Route("fndedit/{id}")]
-        public async Task<IActionResult> EditFndsById([FromBody] EditFndViewModel model, int id)
+        public async Task<IActionResult> EditFndsById(int id, [FromBody] EditFndViewModel model)
         {
             try
             {

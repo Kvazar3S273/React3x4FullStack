@@ -13,12 +13,12 @@ namespace React3x4.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PhotoController : ControllerBase
+    public class FotoprintController : ControllerBase
     {
         private readonly AppEFContext _context;
         private readonly IMapper _mapper;
 
-        public PhotoController(AppEFContext context, IMapper mapper)
+        public FotoprintController(AppEFContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -26,28 +26,28 @@ namespace React3x4.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetFndsList()
+        public async Task<IActionResult> GetFotoprintsList()
         {
-            var fndsList = await _context.Fnds.OrderBy(r => r.Id).Select(res => _mapper.Map<FndsViewModel>(res)).ToListAsync();
-            if (fndsList == null)
+            var fotoprintsList = await _context.Fotoprints.OrderBy(r => r.Id).Select(res => _mapper.Map<FotoprintsViewModel>(res)).ToListAsync();
+            if (fotoprintsList == null)
             {
                 return BadRequest(new { message = "There is no data for display!" });
             }
-            return Ok(fndsList);
+            return Ok(fotoprintsList);
         }
 
         [HttpGet]
-        [Route("fnd/{id}")]
-        public async Task<IActionResult> GetFndsById(int id)
+        [Route("fotoprint/{id}")]
+        public async Task<IActionResult> GetFotoprintsById(int id)
         {
             try
             {
-                var fndItem = await _context.Fnds.SingleOrDefaultAsync(x => x.Id == id);
-                if (fndItem == null)
+                var fotoprintItem = await _context.Fotoprints.SingleOrDefaultAsync(x => x.Id == id);
+                if (fotoprintItem == null)
                 {
                     return NotFound(new { message = "There is no data for display!" });
                 }
-                return Ok(_mapper.Map<FndsViewModel>(fndItem));
+                return Ok(_mapper.Map<FotoprintsViewModel>(fotoprintItem));
             }
             catch (Exception ex)
             {
@@ -57,16 +57,15 @@ namespace React3x4.Controllers
         }
 
         [HttpPut]
-        [Route("fndedit/{id}")]
-        public async Task<IActionResult> EditFndsById(int id, [FromBody] EditFndViewModel model)
+        [Route("fotoprintedit/{id}")]
+        public async Task<IActionResult> EditFotoprintsById(int id, [FromBody] EditFotoprintViewModel model)
         {
             try
             {
-                var fndItem = await _context.Fnds.SingleOrDefaultAsync(x => x.Id == id);
-                if (fndItem != null)
+                var fotoprintItem = await _context.Fotoprints.SingleOrDefaultAsync(x => x.Id == id);
+                if (fotoprintItem != null)
                 {
-                    fndItem.Price = model.Price;
-                    fndItem.ArchivePice = model.ArchivePice;
+                    fotoprintItem.Price = model.Price;
                     await _context.SaveChangesAsync();
                     return Ok();
                 }

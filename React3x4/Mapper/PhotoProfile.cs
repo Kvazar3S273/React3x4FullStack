@@ -27,12 +27,12 @@ namespace React3x4.Mapper
                 .ForMember(dest => dest.Price300dpi, source => source.MapFrom(dest => dest.Price300dpi))
                 .ForMember(dest => dest.Price600dpi, source => source.MapFrom(dest => dest.Price600dpi))
                 .ForMember(dest => dest.Price1200dpi, source => source.MapFrom(dest => dest.Price1200dpi));
-             
+
             CreateMap<PhotoDuplicate, DuplicatesViewModel>()
                 .ForMember(dest => dest.Id, source => source.MapFrom(dest => dest.Id))
                 .ForMember(dest => dest.Format, source => source.MapFrom(dest => dest.Format))
                 .ForMember(dest => dest.PriceFirst, source => source.MapFrom(dest => dest.PriceFirst))
-                .ForMember(dest => dest.PriceEachOther, source => source.MapFrom(dest => dest.PriceEachOther))
+                .ForMember(dest => dest.PriceEachOther, source => source.MapFrom(dest => dest.PriceEachOther));
 
         }
     }

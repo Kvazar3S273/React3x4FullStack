@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using DataLib;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using React3x4.Constants;
 using React3x4.Mapper.MapperModels;
 using React3x4.Models;
 using System;
@@ -13,6 +15,7 @@ namespace React3x4.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FndController : ControllerBase
     {
         private readonly AppEFContext _context;
@@ -22,9 +25,9 @@ namespace React3x4.Controllers
         {
             _context = context;
             _mapper = mapper;
-
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetFndsList()
         {
@@ -36,6 +39,7 @@ namespace React3x4.Controllers
             return Ok(fndsList);
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpGet]
         [Route("fnd/{id}")]
         public async Task<IActionResult> GetFndsById(int id)
@@ -53,11 +57,12 @@ namespace React3x4.Controllers
             {
                 return BadRequest(new { message = ex.Message.ToString() });
             }
-
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpPut]
         [Route("fndedit/{id}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> EditFndsById(int id, [FromBody] EditFndViewModel model)
         {
             try

@@ -43,6 +43,10 @@
     <ProjectReference Include="..\DataLib\DataLib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="data\" />
+  </ItemGroup>
+
   
 
   

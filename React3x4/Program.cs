@@ -43,6 +43,7 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
     options.Password.RequireLowercase = false;
+    options.User.AllowedUserNameCharacters = "àáâãäåºæçè³¿éêëìíîïğñòóôõö÷øùüşÿÀÁÂÃÄÅªÆÇÈ²¯ÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÜŞß";
 })
     .AddEntityFrameworkStores<AppEFContext>()
     .AddDefaultTokenProviders();

@@ -34,6 +34,10 @@ namespace React3x4.Mapper
                 .ForMember(dest => dest.PriceFirst, source => source.MapFrom(dest => dest.PriceFirst))
                 .ForMember(dest => dest.PriceEachOther, source => source.MapFrom(dest => dest.PriceEachOther));
 
+            CreateMap<PhotoPicture, PhotopicturesViewModel>()
+                .ForMember(dest => dest.Id, source => source.MapFrom(dest => dest.Id))
+                .ForMember(dest => dest.Price, source => source.MapFrom(dest => dest.Price));
+
         }
     }
 }

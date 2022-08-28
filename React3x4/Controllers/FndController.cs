@@ -62,7 +62,6 @@ namespace React3x4.Controllers
         [Authorize(Roles = Roles.Admin)]
         [HttpPut]
         [Route("fndedit/{id}")]
-        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> EditFndsById(int id, [FromBody] EditFndViewModel model)
         {
             try

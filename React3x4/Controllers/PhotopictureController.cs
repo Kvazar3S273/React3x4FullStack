@@ -16,12 +16,12 @@ namespace React3x4.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class PhotoscanController : ControllerBase
+    public class PhotopictureController : ControllerBase
     {
         private readonly AppEFContext _context;
         private readonly IMapper _mapper;
 
-        public PhotoscanController(AppEFContext context, IMapper mapper)
+        public PhotopictureController(AppEFContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -29,30 +29,30 @@ namespace React3x4.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> GetPhotoscanList()
+        public async Task<IActionResult> GetPhotopictureList()
         {
-            var photoscansList = await _context.Photoscans.OrderBy(r => r.Id)
-                .Select(res => _mapper.Map<PhotoscansViewModel>(res)).ToListAsync();
-            if (photoscansList == null)
+            var photopictureList = await _context.PhotoPictures.OrderBy(r => r.Id)
+                .Select(res => _mapper.Map<PhotopicturesViewModel>(res)).ToListAsync();
+            if (photopictureList == null)
             {
                 return BadRequest(new { message = "There is no data for display!" });
             }
-            return Ok(photoscansList);
+            return Ok(photopictureList);
         }
 
         [Authorize(Roles = Roles.Admin)]
         [HttpGet]
-        [Route("photoscan/{id}")]
-        public async Task<IActionResult> GetPhotoscanById(int id)
+        [Route("photopicture/{id}")]
+        public async Task<IActionResult> GetPhotopictureById(int id)
         {
             try
             {
-                var photoscanItem = await _context.Photoscans.SingleOrDefaultAsync(x => x.Id == id);
-                if (photoscanItem == null)
+                var photopictureItem = await _context.PhotoPictures.SingleOrDefaultAsync(x => x.Id == id);
+                if (photopictureItem == null)
                 {
                     return NotFound(new { message = "There is no data for display!" });
                 }
-                return Ok(_mapper.Map<PhotoscansViewModel>(photoscanItem));
+                return Ok(_mapper.Map<PhotopicturesViewModel>(photopictureItem));
             }
             catch (Exception ex)
             {
@@ -63,17 +63,15 @@ namespace React3x4.Controllers
 
         [Authorize(Roles = Roles.Admin)]
         [HttpPut]
-        [Route("photoscanedit/{id}")]
-        public async Task<IActionResult> EditPhotoscansById(int id, [FromBody] EditPhotoscanViewModel model)
+        [Route("photopictureedit/{id}")]
+        public async Task<IActionResult> EditPhotopicturesById(int id, [FromBody] EditPhotopictureViewModel model)
         {
             try
             {
-                var photoscanItem = await _context.Photoscans.SingleOrDefaultAsync(x => x.Id == id);
-                if (photoscanItem != null)
+                var photopictureItem = await _context.PhotoPictures.SingleOrDefaultAsync(x => x.Id == id);
+                if (photopictureItem != null)
                 {
-                    photoscanItem.Price300dpi = model.Price300dpi;
-                    photoscanItem.Price600dpi = model.Price600dpi;
-                    photoscanItem.Price1200dpi = model.Price1200dpi;
+                    photopictureItem.Price = model.Price;
                     await _context.SaveChangesAsync();
                     return Ok();
                 }

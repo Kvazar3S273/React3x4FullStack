@@ -128,6 +128,7 @@ app.PhotoScanSeedData();
 app.PhotoDuplicateSeedData();
 app.PhotoPictureSeedData();
 app.PhotoBottleSeedData();
+app.XeroxSeedData();
 
 app.UseCors(x => x
             .AllowAnyOrigin()

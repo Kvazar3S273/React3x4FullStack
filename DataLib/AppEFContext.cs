@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using DataLib.Entities.Identity;
 using DataLib.Entities.Photo;
+using DataLib.Entities.Comp;
 
 namespace DataLib
 {
@@ -22,6 +23,7 @@ namespace DataLib
         public virtual DbSet<PhotoDuplicate> PhotoDuplicates { get; set; }
         public virtual DbSet<PhotoPicture> PhotoPictures { get; set; }
         public virtual DbSet<PhotoBottle> PhotoBottles{ get; set; }
+        public virtual DbSet<Xerox> Xeroxes{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

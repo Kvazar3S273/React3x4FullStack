@@ -24,6 +24,9 @@ namespace DataLib
         public virtual DbSet<PhotoPicture> PhotoPictures { get; set; }
         public virtual DbSet<PhotoBottle> PhotoBottles{ get; set; }
         public virtual DbSet<Xerox> Xeroxes{ get; set; }
+        public virtual DbSet<BlackPrint> BlackPrints { get; set; }
+        public virtual DbSet<ColorPrint> ColorPrints { get; set; }
+        public virtual DbSet<Scanning> Scannings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

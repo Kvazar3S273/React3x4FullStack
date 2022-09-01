@@ -132,6 +132,7 @@ app.XeroxSeedData();
 app.BlackPrintSeedData();
 app.ColorPrintSeedData();
 app.ScanningSeedData();
+app.TestSeedData();
 
 app.UseCors(x => x
             .AllowAnyOrigin()

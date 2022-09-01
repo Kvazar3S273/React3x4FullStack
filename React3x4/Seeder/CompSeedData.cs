@@ -208,5 +208,62 @@ namespace React3x4.Seeder
                 context.SaveChanges();
             }
         }
+
+        public static void TestSeedData(this IApplicationBuilder app)
+        {
+            using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+            var context = scope.ServiceProvider.GetRequiredService<AppEFContext>();
+
+            if (!context.Tests.Any())
+            {
+                context.Tests
+                    .Add(new Test
+                    {
+                        Name="Сканування",
+                        DealerPrice=10,
+                        UserPrice=0,
+                        AlternatePrice=0
+                    });
+
+                context.Tests
+                    .Add(new Test
+                    {
+                        Name = "Друк",
+                        DealerPrice = 11,
+                        UserPrice = 0,
+                        AlternatePrice = 0
+                    });
+
+                context.Tests
+                    .Add(new Test
+                    {
+                        Name = "Брошурування",
+                        DealerPrice = 12,
+                        UserPrice = 0,
+                        AlternatePrice = 0
+                    });
+
+                context.Tests
+                    .Add(new Test
+                    {
+                        Name = "Ламінування",
+                        DealerPrice = 13,
+                        UserPrice = 0,
+                        AlternatePrice = 0
+                    });
+
+                context.Tests
+                    .Add(new Test
+                    {
+                        Name = "Порізка",
+                        DealerPrice = 14,
+                        UserPrice = 0,
+                        AlternatePrice = 0
+                    });
+
+                context.SaveChanges();
+            }
+        }
     }
 }

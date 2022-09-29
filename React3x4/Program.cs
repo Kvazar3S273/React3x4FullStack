@@ -132,6 +132,11 @@ app.XeroxSeedData();
 app.BlackPrintSeedData();
 app.ColorPrintSeedData();
 app.ScanningSeedData();
+app.LaminateSeedData();
+app.BinderSeedData();
+app.UsbFlashSeedData();
+app.DiscprintSeedData();
+app.EmailSeedData();
 app.TestSeedData();
 
 app.UseCors(x => x

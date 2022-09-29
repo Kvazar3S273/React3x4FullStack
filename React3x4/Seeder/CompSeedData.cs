@@ -209,6 +209,220 @@ namespace React3x4.Seeder
             }
         }
 
+        public static void LaminateSeedData(this IApplicationBuilder app)
+        {
+            using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+            var context = scope.ServiceProvider.GetRequiredService<AppEFContext>();
+
+            if (!context.Laminates.Any())
+            {
+                context.Laminates
+                    .Add(new Laminate
+                    {
+                        Format = "А4, 20х30, свідоцтва",
+                        Price = 20
+                    });
+
+                context.Laminates
+                    .Add(new Laminate
+                    {
+                        Format = "А4, 125 мкм",
+                        Price = 30
+                    });
+
+                context.Laminates
+                    .Add(new Laminate
+                    {
+                        Format = "А5, 15х21",
+                        Price = 17
+                    });
+
+                context.Laminates
+                    .Add(new Laminate
+                    {
+                        Format = "А6, 10х15",
+                        Price = 15
+                    });
+
+                context.Laminates
+                    .Add(new Laminate
+                    {
+                        Format = "менше за А6",
+                        Price = 12
+                    });
+
+                context.SaveChanges();
+            }
+        }
+
+        public static void BinderSeedData(this IApplicationBuilder app)
+        {
+            using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+            var context = scope.ServiceProvider.GetRequiredService<AppEFContext>();
+
+            if (!context.Binders.Any())
+            {
+                context.Binders
+                    .Add(new Binder
+                    {
+                        PagesQty = "до 20",
+                        Price = 30
+                    });
+
+                context.Binders
+                    .Add(new Binder
+                    {
+                        PagesQty = "21-40",
+                        Price = 35
+                    });
+
+                context.Binders
+                   .Add(new Binder
+                   {
+                       PagesQty = "41-60",
+                       Price = 40
+                   });
+
+                context.Binders
+                    .Add(new Binder
+                    {
+                        PagesQty = "61-80",
+                        Price = 45
+                    });
+
+                context.Binders
+                   .Add(new Binder
+                   {
+                       PagesQty = "кожних +20 сторінок, +...грн",
+                       Price = 5
+                   });
+
+                context.Binders
+                    .Add(new Binder
+                    {
+                        PagesQty = "додавання сторінок (10 шт), від",
+                        Price = 8
+                    });
+
+                context.SaveChanges();
+            }
+        }
+
+        public static void UsbFlashSeedData(this IApplicationBuilder app)
+        {
+            using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+            var context = scope.ServiceProvider.GetRequiredService<AppEFContext>();
+
+            if (!context.UsbFlashes.Any())
+            {
+                context.UsbFlashes
+                    .Add(new UsbFlash
+                    {
+                        Service = "Запис CD дисків 700 Mb",
+                        Price = 20
+                    });
+
+                context.UsbFlashes
+                    .Add(new UsbFlash
+                    {
+                        Service = "Запис DVD дисків 4,7 Gb",
+                        Price = 25
+                    });
+
+                context.UsbFlashes
+                    .Add(new UsbFlash
+                    {
+                        Service = "Запис DVD-DL дисків 8,5 Gb",
+                        Price = 30
+                    });
+
+                context.UsbFlashes
+                    .Add(new UsbFlash
+                    {
+                        Service = "Запис флеш-носіїв до 8 Gb",
+                        Price = 30
+                    });
+
+                context.UsbFlashes
+                    .Add(new UsbFlash
+                    {
+                        Service = "Запис флеш-носіїв більше 8 Gb",
+                        Price = 40
+                    });
+
+                context.SaveChanges();
+            }
+        }
+
+        public static void DiscprintSeedData(this IApplicationBuilder app)
+        {
+            using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+            var context = scope.ServiceProvider.GetRequiredService<AppEFContext>();
+
+            if (!context.Discprints.Any())
+            {
+                context.Discprints
+                    .Add(new Discprint
+                    {
+                        Service = "Друк на диску",
+                        Price = 40
+                    });
+
+                context.Discprints
+                   .Add(new Discprint
+                   {
+                       Service = "Розробка макету, від",
+                       Price = 50
+                   });
+
+                context.SaveChanges();
+            }
+        }
+
+        public static void EmailSeedData(this IApplicationBuilder app)
+        {
+            using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+            var context = scope.ServiceProvider.GetRequiredService<AppEFContext>();
+
+            if (!context.Emails.Any())
+            {
+                context.Emails
+                    .Add(new Email
+                    {
+                        Service = "Відправка ел. пошти, за 1 лист",
+                        Price = 10
+                    });
+
+                context.Emails
+                     .Add(new Email
+                     {
+                       Service = "Відправка на Viber",
+                       Price = 5
+                   });
+
+                context.Emails
+                    .Add(new Email
+                    {
+                        Service = "Використання вашої скриньки",
+                        Price = 15
+                    });
+
+                context.Emails
+                    .Add(new Email
+                    {
+                       Service = "Завантаження на файлообмінник, від",
+                       Price = 50
+                   });
+
+                context.SaveChanges();
+            }
+        }
+
         public static void TestSeedData(this IApplicationBuilder app)
         {
             using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();

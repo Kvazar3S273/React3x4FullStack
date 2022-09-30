@@ -13,6 +13,7 @@ namespace React3x4.Mapper
                 .ForMember(dest => dest.Density, source => source.MapFrom(dest => dest.Density))
                 .ForMember(dest => dest.Laminating, source => source.MapFrom(dest => dest.Laminating))
                 .ForMember(dest => dest.Price, source => source.MapFrom(dest => dest.Price));
+        
         }
 
     }

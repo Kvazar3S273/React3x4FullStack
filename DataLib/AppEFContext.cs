@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using DataLib.Entities.Identity;
 using DataLib.Entities.Photo;
 using DataLib.Entities.Comp;
+using DataLib.Entities.Poligraph;
 
 namespace DataLib
 {
@@ -32,6 +33,7 @@ namespace DataLib
         public virtual DbSet<UsbFlash> UsbFlashes { get; set; }
         public virtual DbSet<Discprint> Discprints { get; set; }
         public virtual DbSet<Email> Emails { get; set; }
+        public virtual DbSet<Visitcard> Visitcards { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

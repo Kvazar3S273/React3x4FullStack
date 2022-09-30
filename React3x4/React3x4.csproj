@@ -45,6 +45,8 @@
 
   <ItemGroup>
     <Folder Include="data\" />
+    <Folder Include="Mapper\MapperModels\CompVM\" />
+    <Folder Include="Models\CompEditVM\" />
   </ItemGroup>
 
   

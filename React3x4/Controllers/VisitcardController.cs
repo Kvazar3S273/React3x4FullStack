@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using React3x4.Constants;
 using React3x4.Mapper.MapperModels;
-using React3x4.Models;
+using React3x4.Models.PoligraphEditVM;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,12 +16,12 @@ namespace React3x4.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class PhotoscanController : ControllerBase
+    public class VisitcardController : ControllerBase
     {
         private readonly AppEFContext _context;
         private readonly IMapper _mapper;
 
-        public PhotoscanController(AppEFContext context, IMapper mapper)
+        public VisitcardController(AppEFContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -29,51 +29,47 @@ namespace React3x4.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> GetPhotoscanList()
+        public async Task<IActionResult> GetVisitcardsList()
         {
-            var photoscansList = await _context.Photoscans.OrderBy(r => r.Id)
-                .Select(res => _mapper.Map<VisitcardsViewModel>(res)).ToListAsync();
-            if (photoscansList == null)
+            var visitcardsList = await _context.Visitcards.OrderBy(r => r.Id).Select(res => _mapper.Map<VisitcardsViewModel>(res)).ToListAsync();
+            if (visitcardsList == null)
             {
                 return BadRequest(new { message = "There is no data for display!" });
             }
-            return Ok(photoscansList);
+            return Ok(visitcardsList);
         }
 
         [Authorize(Roles = Roles.Admin)]
         [HttpGet]
-        [Route("photoscan/{id}")]
-        public async Task<IActionResult> GetPhotoscanById(int id)
+        [Route("visitcard/{id}")]
+        public async Task<IActionResult> GetVisitcardsById(int id)
         {
             try
             {
-                var photoscanItem = await _context.Photoscans.SingleOrDefaultAsync(x => x.Id == id);
-                if (photoscanItem == null)
+                var visitcardItem = await _context.Visitcards.SingleOrDefaultAsync(x => x.Id == id);
+                if (visitcardItem == null)
                 {
                     return NotFound(new { message = "There is no data for display!" });
                 }
-                return Ok(_mapper.Map<VisitcardsViewModel>(photoscanItem));
+                return Ok(_mapper.Map<VisitcardsViewModel>(visitcardItem));
             }
             catch (Exception ex)
             {
                 return BadRequest(new { message = ex.Message.ToString() });
             }
-
         }
 
         [Authorize(Roles = Roles.Admin)]
         [HttpPut]
-        [Route("photoscanedit/{id}")]
-        public async Task<IActionResult> EditPhotoscansById(int id, [FromBody] EditPhotoscanViewModel model)
+        [Route("visitcardedit/{id}")]
+        public async Task<IActionResult> EditVivitcardsById(int id, [FromBody] EditVisitcardViewModel model)
         {
             try
             {
-                var photoscanItem = await _context.Photoscans.SingleOrDefaultAsync(x => x.Id == id);
-                if (photoscanItem != null)
+                var visitcardItem = await _context.Visitcards.SingleOrDefaultAsync(x => x.Id == id);
+                if (visitcardItem != null)
                 {
-                    photoscanItem.Price300dpi = model.Price300dpi;
-                    photoscanItem.Price600dpi = model.Price600dpi;
-                    photoscanItem.Price1200dpi = model.Price1200dpi;
+                    visitcardItem.Price = model.Price;
                     await _context.SaveChangesAsync();
                     return Ok();
                 }
@@ -83,7 +79,6 @@ namespace React3x4.Controllers
             {
                 return BadRequest(new { message = ex.Message.ToString() });
             }
-
         }
     }
 }

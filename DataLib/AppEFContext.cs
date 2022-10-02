@@ -34,6 +34,7 @@ namespace DataLib
         public virtual DbSet<Discprint> Discprints { get; set; }
         public virtual DbSet<Email> Emails { get; set; }
         public virtual DbSet<Visitcard> Visitcards { get; set; }
+        public virtual DbSet<Visitka> Visitkas { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

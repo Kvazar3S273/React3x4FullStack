@@ -140,6 +140,7 @@ app.DiscprintSeedData();
 app.EmailSeedData();
 
 app.VisitcardSeedData();
+app.VisitkaSeedData();
 
 app.TestSeedData();
 

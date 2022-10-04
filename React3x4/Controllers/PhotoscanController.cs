@@ -32,7 +32,7 @@ namespace React3x4.Controllers
         public async Task<IActionResult> GetPhotoscanList()
         {
             var photoscansList = await _context.Photoscans.OrderBy(r => r.Id)
-                .Select(res => _mapper.Map<VisitcardsViewModel>(res)).ToListAsync();
+                .Select(res => _mapper.Map<PhotoscansViewModel>(res)).ToListAsync();
             if (photoscansList == null)
             {
                 return BadRequest(new { message = "There is no data for display!" });
@@ -52,7 +52,7 @@ namespace React3x4.Controllers
                 {
                     return NotFound(new { message = "There is no data for display!" });
                 }
-                return Ok(_mapper.Map<VisitcardsViewModel>(photoscanItem));
+                return Ok(_mapper.Map<PhotoscansViewModel>(photoscanItem));
             }
             catch (Exception ex)
             {

@@ -36,6 +36,11 @@ namespace React3x4.Mapper
                 .ForMember(dest => dest.Format, source => source.MapFrom(dest => dest.Format))
                 .ForMember(dest => dest.Price, source => source.MapFrom(dest => dest.Price));
 
+            CreateMap<Binder, BindersViewModel>()
+                .ForMember(dest => dest.Id, source => source.MapFrom(dest => dest.Id))
+                .ForMember(dest => dest.PagesQty, source => source.MapFrom(dest => dest.PagesQty))
+                .ForMember(dest => dest.Price, source => source.MapFrom(dest => dest.Price));
+
         }
     }
 }

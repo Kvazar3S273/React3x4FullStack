@@ -80,5 +80,25 @@ namespace React3x4.Controllers
                 return BadRequest(new { message = ex.Message.ToString() });
             }
         }
+
+        [Authorize(Roles = Roles.Admin)]
+        [HttpPut]
+        [Route("visitcardeditbypercent/{koef}")]
+        public async Task<IActionResult> EditVisitCardByKoef([FromRoute] decimal koef)
+        {
+            try
+            {
+                var listPrices = await _context.Visitcards.ToListAsync();
+                var koefForExpressionResult = 1 + (koef / 100);
+                listPrices.ForEach(c => c.Price = Math.Ceiling(c.Price * koefForExpressionResult));
+                _context.SaveChanges();
+                return Ok(listPrices);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message.ToString() });
+            }
+
+        }
     }
 }

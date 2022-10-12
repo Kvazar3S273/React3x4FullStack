@@ -29,9 +29,9 @@ namespace React3x4.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> GetUsbsList()
+        public async Task<IActionResult> GetUsbFlashesList()
         {
-            var usbsList = await _context.Binders.OrderBy(r => r.Id).Select(res => _mapper.Map<UsbFlashesViewModel>(res)).ToListAsync();
+            var usbsList = await _context.UsbFlashes.OrderBy(r => r.Id).Select(res => _mapper.Map<UsbFlashesViewModel>(res)).ToListAsync();
             if (usbsList == null)
             {
                 return BadRequest(new { message = "There is no data for display!" });
@@ -42,7 +42,7 @@ namespace React3x4.Controllers
         [Authorize(Roles = Roles.Admin)]
         [HttpGet]
         [Route("usbflash/{id}")]
-        public async Task<IActionResult> GetUsbsById(int id)
+        public async Task<IActionResult> GetUsbFlashesById(int id)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace React3x4.Controllers
         [Authorize(Roles = Roles.Admin)]
         [HttpPut]
         [Route("usbflashedit/{id}")]
-        public async Task<IActionResult> EditUsbsById(int id, [FromBody] EditUsbFlashViewModel model)
+        public async Task<IActionResult> EditUsbFlashesById(int id, [FromBody] EditUsbFlashViewModel model)
         {
             try
             {

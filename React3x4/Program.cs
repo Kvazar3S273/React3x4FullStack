@@ -22,6 +22,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.HttpOverrides;
 using React3x4.Validation;
 using React3x4.Mapper;
+using React3x4.Seeder.PoligraphSeeder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -139,8 +140,8 @@ app.UsbFlashSeedData();
 app.DiscprintSeedData();
 app.EmailSeedData();
 
-app.VisitcardSeedData();
-app.VisitkaSeedData();
+app.VisitcardSeeder();
+app.FlyerSeeder();
 
 app.TestSeedData();
 

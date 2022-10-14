@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace DataLib.Entities.Poligraph
 {
-    [Table("tblVisitka")]
-    public class Visitka
+    [Table("tblFlyer")]
+    public class Flyer
     {
         [Key]
         public int Id { get; set; }
-        public string Density { get; set; }
-        public string Laminating { get; set; }
-        public int Price { get; set; }
+        public string Format { get; set; }
+        public string Qty { get; set; }
+        public decimal Price { get; set; }
     }
 }

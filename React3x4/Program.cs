@@ -142,6 +142,7 @@ app.EmailSeedData();
 
 app.VisitcardSeeder();
 app.FlyerSeeder();
+app.CalendarSeeder();
 
 app.TestSeedData();
 

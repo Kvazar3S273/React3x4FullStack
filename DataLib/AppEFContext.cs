@@ -35,6 +35,7 @@ namespace DataLib
         public virtual DbSet<Email> Emails { get; set; }
         public virtual DbSet<Visitcard> Visitcards { get; set; }
         public virtual DbSet<Flyer> Flyers { get; set; }
+        public virtual DbSet<Calendar> Calendars { get; set; }
         
         
         public virtual DbSet<Test> Tests { get; set; }

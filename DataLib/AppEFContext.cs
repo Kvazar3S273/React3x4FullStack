@@ -36,6 +36,12 @@ namespace DataLib
         public virtual DbSet<Visitcard> Visitcards { get; set; }
         public virtual DbSet<Flyer> Flyers { get; set; }
         public virtual DbSet<Calendar> Calendars { get; set; }
+        public virtual DbSet<Birka> Birkas { get; set; }
+        public virtual DbSet<Sticker> Stickers { get; set; }
+        public virtual DbSet<Hanger> Hangers { get; set; }
+        public virtual DbSet<Oracal> Oracals { get; set; }
+        public virtual DbSet<Baner> Baners { get; set; }
+        public virtual DbSet<Pvc> Pvcs { get; set; }
         
         
         public virtual DbSet<Test> Tests { get; set; }

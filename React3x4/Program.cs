@@ -143,6 +143,12 @@ app.EmailSeedData();
 app.VisitcardSeeder();
 app.FlyerSeeder();
 app.CalendarSeeder();
+app.BirkaSeeder();
+app.StickerSeeder();
+app.HangerSeeder();
+app.OracalSeeder();
+app.BanerSeeder();
+app.PvcSeeder();
 
 app.TestSeedData();
 

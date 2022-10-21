@@ -86,37 +86,44 @@ namespace React3x4.Seeder
                 context.Fotoprints
                     .Add(new Photoprint
                     {
+                        Format = "9х13",
+                        ExactSizes = "89х127",
+                        Price = 6
+                    });
+                context.Fotoprints
+                    .Add(new Photoprint
+                    {
                         Format = "10х15",
                         ExactSizes = "102х152",
-                        Price = 5
+                        Price = 6
                     });
                 context.Fotoprints
                     .Add(new Photoprint
                     {
                         Format = "13х18",
                         ExactSizes = "127х178",
-                        Price = 10
+                        Price = 12
                     });
                 context.Fotoprints
                     .Add(new Photoprint
                     {
                         Format = "15х21",
                         ExactSizes = "152х216",
-                        Price = 11
+                        Price = 13
                     });
                 context.Fotoprints
                     .Add(new Photoprint
                     {
                         Format = "20х30",
                         ExactSizes = "203х305",
-                        Price = 21
+                        Price = 25
                     });
                 context.Fotoprints
                     .Add(new Photoprint
                     {
                         Format = "30х40",
                         ExactSizes = "305х420",
-                        Price = 42
+                        Price = 50
                     });
 
                 context.SaveChanges();

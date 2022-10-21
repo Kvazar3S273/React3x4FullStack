@@ -16,12 +16,12 @@ namespace React3x4.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class BanerController : ControllerBase
+    public class BinerController : ControllerBase
     {
         private readonly AppEFContext _context;
         private readonly IMapper _mapper;
 
-        public BanerController(AppEFContext context, IMapper mapper)
+        public BinerController(AppEFContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -41,7 +41,7 @@ namespace React3x4.Controllers
 
         [Authorize(Roles = Roles.Admin)]
         [HttpGet]
-        [Route("baner/{id}")]
+        [Route("biner/{id}")]
         public async Task<IActionResult> GetBanersById(int id)
         {
             try
@@ -61,7 +61,7 @@ namespace React3x4.Controllers
 
         [Authorize(Roles = Roles.Admin)]
         [HttpPut]
-        [Route("baneredit/{id}")]
+        [Route("bineredit/{id}")]
         public async Task<IActionResult> EditBanersById(int id, [FromBody] EditBanerViewModel model)
         {
             try
@@ -83,7 +83,7 @@ namespace React3x4.Controllers
 
         [Authorize(Roles = Roles.Admin)]
         [HttpPut]
-        [Route("banereditbypercent/{koef}")]
+        [Route("binereditbypercent/{koef}")]
         public async Task<IActionResult> EditBanerByKoef([FromRoute] decimal koef)
         {
             try

@@ -137,6 +137,7 @@ app.ScanningSeedData();
 app.LaminateSeedData();
 app.BinderSeedData();
 app.UsbFlashSeedData();
+app.VhsSeedData();
 app.DiscprintSeedData();
 app.EmailSeedData();
 

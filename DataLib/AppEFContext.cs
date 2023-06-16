@@ -31,6 +31,7 @@ namespace DataLib
         public virtual DbSet<Laminate> Laminates { get; set; }
         public virtual DbSet<Binder> Binders { get; set; }
         public virtual DbSet<UsbFlash> UsbFlashes { get; set; }
+        public virtual DbSet<Vhs> Vhses { get; set; }
         public virtual DbSet<Discprint> Discprints { get; set; }
         public virtual DbSet<Email> Emails { get; set; }
         public virtual DbSet<Visitcard> Visitcards { get; set; }

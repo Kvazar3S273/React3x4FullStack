@@ -357,6 +357,30 @@ namespace React3x4.Seeder
             }
         }
 
+        public static void VhsSeedData(this IApplicationBuilder app)
+        {
+            using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+            var context = scope.ServiceProvider.GetRequiredService<AppEFContext>();
+
+            if (!context.Vhses.Any())
+            {
+                context.Vhses
+                    .Add(new Vhs
+                    {
+                        Service = "Оцифровка першої години запису",
+                        Price = 100
+                    });
+                context.Vhses
+                    .Add(new Vhs
+                    {
+                        Service = "Оцифровка одної години запису при умові знижки",
+                        Price = 85
+                    });
+                context.SaveChanges();
+            }
+        }
+
         public static void DiscprintSeedData(this IApplicationBuilder app)
         {
             using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();

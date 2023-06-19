@@ -79,6 +79,8 @@ builder.Services.AddControllersWithViews().AddFluentValidation();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<IValidator<RegisterViewModel>, AccountValidator>();
 builder.Services.AddAutoMapper(typeof(PhotoProfile));
+builder.Services.AddAutoMapper(typeof(CompProfile));
+builder.Services.AddAutoMapper(typeof(PoligraphProfile));
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

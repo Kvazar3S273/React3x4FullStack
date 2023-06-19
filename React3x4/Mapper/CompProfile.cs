@@ -46,6 +46,11 @@ namespace React3x4.Mapper
                 .ForMember(dest => dest.Service, source => source.MapFrom(dest => dest.Service))
                 .ForMember(dest => dest.Price, source => source.MapFrom(dest => dest.Price));
 
+            CreateMap<Vhs, VhsesViewModel>()
+                .ForMember(dest => dest.Id, source => source.MapFrom(dest => dest.Id))
+                .ForMember(dest => dest.Service, source => source.MapFrom(dest => dest.Service))
+                .ForMember(dest => dest.Price, source => source.MapFrom(dest => dest.Price));
+
             CreateMap<Discprint, DiscprintsViewModel>()
                .ForMember(dest => dest.Id, source => source.MapFrom(dest => dest.Id))
                .ForMember(dest => dest.Service, source => source.MapFrom(dest => dest.Service))

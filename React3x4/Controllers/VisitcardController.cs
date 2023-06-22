@@ -32,6 +32,7 @@ namespace React3x4.Controllers
         public async Task<IActionResult> GetVisitcardsList()
         {
             var visitcardsList = await _context.Visitcards.OrderBy(r => r.Id).Select(res => _mapper.Map<VisitcardsViewModel>(res)).ToListAsync();
+            
             if (visitcardsList == null)
             {
                 return BadRequest(new { message = "There is no data for display!" });
